@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number and String</title>
+</head>
+<body>
+
+<script>
+    function concatenate() {
+        const userInputs = [];
+        for (let i = 1; i <= 3; i++) {
+            userInputs.push(prompt(`Enter ${i}-th string:`));
+        }
+        const result = userInputs.join(" ");
+        return result;
+    }
+
+
+    function splitNumber() {
+        const userInput = prompt("Enter a five-digit number:");
+        const result = Array.from(userInput).join(" ");
+        return result;
+    }
+
+    const concatenatedStrings = concatenate();
+    console.log("Concatenation result:", concatenatedStrings);
+
+    const rowDividedNumber = splitNumber();
+    console.log("Result of splitting numbers:", rowDividedNumber);
+
+
+</script>
+
+</body>
+</html>
