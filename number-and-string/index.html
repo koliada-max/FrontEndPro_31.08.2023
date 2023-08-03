@@ -18,6 +18,11 @@
 
     function splitNumber() {
         const userInput = prompt("Enter a five-digit number:");
+
+        if (isNaN(userInput) || userInput.length !== 5) {
+            return "Invalid input. Please enter a five-digit numbers.";
+        }
+
         const result = Array.from(userInput).join(" ");
         return result;
     }
