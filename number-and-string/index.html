@@ -11,20 +11,18 @@
         for (let i = 1; i <= 3; i++) {
             userInputs.push(prompt(`Enter ${i}-th string:`));
         }
-        const result = userInputs.join(" ");
-        return result;
+        return userInputs.join(" ");
     }
 
 
     function splitNumber() {
         const userInput = prompt("Enter a five-digit number:");
 
-        if (isNaN(userInput) || userInput.length !== 5) {
+        if (isNaN(Number(userInput)) || userInput.length !== 5) {
             return "Invalid input. Please enter a five-digit numbers.";
         }
 
-        const result = Array.from(userInput).join(" ");
-        return result;
+        return Array.from(userInput).join(" ");
     }
 
     const concatenatedStrings = concatenate();
