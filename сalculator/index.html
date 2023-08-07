@@ -10,14 +10,17 @@
     const num1 = parseFloat(prompt("enter first num:"));
     const num2 = parseFloat(prompt("enter second num:"));
 
-    const result = {
-        add: () => num1 + num2,
-        sub: () => num1 - num2,
-        multi: () => num1 * num2,
-        div: () => num1 / num2,
-    }[operation]();
+    const operator = {
+        add: '+',
+        sub: '-',
+        multi: '*',
+        div: '/',
+    };
 
-    console.log(`${num1} ${operation} ${num2} = ${result}`);
+    const result = { add: num1 + num2, sub: num1 - num2, multi: num1 * num2, div: num1 / num2 }[operation];
+
+    alert(`${num1} ${operator[operation]} ${num2} = ${result}`);
+
 </script>
 
 </body>
