@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User portrait</title>
+</head>
+<body>
+
+<script>
+    const birthYear = parseInt(prompt("Year of birth:"));
+    if (isNaN(birthYear)) {
+        alert("Please enter a valid year of birth.");
+    } else {
+        const city = prompt("City of residence:");
+        if (!city) {
+            alert("Please enter a valid city.");
+        } else {
+            const sport = prompt("Favorite sport:");
+            if (!sport) {
+                alert("Please enter a valid favorite sport.");
+            } else {
+                const age = new Date().getFullYear() - birthYear;
+                const countries = { "Kyiv": "Ukraine", "Washington": "USA", "London": "Great Britain" };
+                const country = countries[city] ? `the capital ${countries[city]}` : `${city} city`;
+
+                const champions = { "football": "Lionel Messi", "basketball": "LeBron James", "tennis": "Serena Williams" };
+                const champion = champions[sport] || "champion";
+
+                const confirmMessage = confirm(`Cool! Do you want to become ${champion}?`);
+
+                if (confirmMessage) {
+                    alert(`Your age: ${age}\nYou live in ${country}!\n${champion} cheers you up!`);
+                } else {
+                    alert(`It's a pity that you didn't want to enter your ${sport}...`);
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
