@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculate Average</title>
+  </head>
+  <body>
+    <div>
+      <h2>1. Calculate the Arithmetic Mean</h2>
+      <label for="arrayInput">Enter array elements (comma-separated):</label>
+      <input type="text" id="arrayInput" />
+      <button onclick="calculateAverage()">Calculate</button>
+      <p id="arrayOutput"></p>
+    </div>
+
+    <div style="padding-top: 25px">
+      <h2>2. Calculation of mathematical operations</h2>
+      <div style="padding-top: 15px">
+        <label for="number1">Enter the first number:</label>
+        <input type="number" id="number1" />
+      </div>
+      <div style="padding-top: 15px">
+        <label for="number2">Enter the second number:</label>
+        <input type="number" id="number2" />
+      </div>
+      <p>Select an operation:</p>
+      <div style="display: flex; padding-bottom: 15px">
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <label for="addition">+</label>
+          <input type="checkbox" id="addition" value="+" />
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <label for="subtraction">-</label>
+          <input type="checkbox" id="subtraction" value="-" />
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <label for="multiplication">*</label>
+          <input type="checkbox" id="multiplication" value="*" />
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <label for="division">/</label>
+          <input type="checkbox" id="division" value="/" />
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <label for="modulo">%</label>
+          <input type="checkbox" id="modulo" value="%" />
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <label for="exponentiation">^</label>
+          <input type="checkbox" id="exponentiation" value="^" />
+        </div>
+      </div>
+
+      <button onclick="calculateMath()">Calculate</button>
+
+      <p>Result: <span id="result"></span></p>
+    </div>
+
+    <div style="padding-top: 25px">
+      <h2>3. Create 2D Array with User Data</h2>
+      <div style="padding-top: 15px">
+        <label for="rows">Enter the number of rows:</label>
+        <input type="number" id="rows" />
+      </div>
+      <div style="padding-top: 15px">
+        <label for="cols">Enter the number of columns:</label>
+        <input type="number" id="cols" />
+      </div>
+
+      <button onclick="fill2DArray()">Create Array</button>
+
+      <div id="arrayDisplay"></div>
+    </div>
+
+    <div style="padding-top: 25px">
+      <h2>4. Remove Characters from String</h2>
+      <div style="padding-top: 15px">
+        <label for="inputString">Enter a string:</label>
+        <input type="text" id="inputString" />
+      </div>
+      <div style="padding-top: 15px">
+        <label for="charactersToRemove"
+          >Enter characters to remove (comma-separated):</label
+        >
+        <input type="text" id="charactersToRemove" />
+      </div>
+      <button onclick="removeCharacters()">Remove Characters</button>
+      <p>Result: <span id="resultString"></span></p>
+    </div>
+
+    <script>
+      function calculateAverage() {
+        const input = document.getElementById('arrayInput').value;
+        const elements = input.split(',');
+        const numbers = elements
+          .map((item) => parseFloat(item))
+          .filter((num) => !isNaN(num));
+
+        const output = document.getElementById('arrayOutput');
+        if (numbers.length === 0) {
+          output.textContent = 'No numerical elements found.';
+          return;
+        }
+
+        const sum = numbers.reduce((acc, num) => acc + num, 0);
+        const average = sum / numbers.length;
+
+        output.textContent = `Arithmetic mean of numerical elements: ${average}`;
+      }
+
+      function calculateMath() {
+        const x = parseFloat(document.getElementById('number1').value);
+        const y = parseFloat(document.getElementById('number2').value);
+        const resultElement = document.getElementById('result');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        let result = '';
+
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.checked) {
+            const znak = checkbox.value;
+
+            if (isNaN(x) || isNaN(y)) {
+              result += `Invalid data for operation '${znak}'\n`;
+            } else {
+              switch (znak) {
+                case '+':
+                  result += `${x} + ${y} = ${x + y}\n`;
+                  break;
+                case '-':
+                  result += `${x} - ${y} = ${x - y}\n`;
+                  break;
+                case '*':
+                  result += `${x} * ${y} = ${x * y}\n`;
+                  break;
+                case '/':
+                  if (y === 0) {
+                    result += `Division by zero is not allowed\n`;
+                  } else {
+                    result += `${x} / ${y} = ${x / y}\n`;
+                  }
+                  break;
+                case '%':
+                  result += `${x} % ${y} = ${x % y}\n`;
+                  break;
+                case '^':
+                  result += `${x} ^ ${y} = ${Math.pow(x, y)}\n`;
+                  break;
+                default:
+                  result += `Invalid operator '${znak}'\n`;
+              }
+            }
+          }
+        });
+
+        resultElement.textContent = result || 'Select operations to calculate.';
+      }
+
+      function fill2DArray() {
+        const rows = parseInt(document.getElementById('rows').value);
+        const cols = parseInt(document.getElementById('cols').value);
+        const arrayDisplay = document.getElementById('arrayDisplay');
+        const array = create2DArray(rows, cols);
+
+        const arrayHtml = `<p>2D Array:</p><ul>${array
+          .map((row) => `<li>[ ${row.join(', ')} ]</li>`)
+          .join('')}</ul>`;
+
+        arrayDisplay.innerHTML = arrayHtml;
+      }
+
+      function create2DArray(rows, cols) {
+        const result = [];
+
+        for (let i = 0; i < rows; i++) {
+          const innerArray = Array.from({ length: cols }, (_, j) =>
+            prompt(`Enter value for row ${i}, column ${j}:`)
+          );
+
+          result.push(innerArray);
+        }
+
+        return result;
+      }
+
+      function removeCharacters() {
+        const { value: inputString } = document.getElementById('inputString');
+        const { value: charactersToRemove } =
+          document.getElementById('charactersToRemove');
+        document.getElementById('resultString').textContent = inputString
+          .split('')
+          .filter((char) => !charactersToRemove.includes(char))
+          .join('');
+      }
+    </script>
+  </body>
+</html>
