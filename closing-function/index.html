@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Closing function</title>
+  </head>
+  <body>
+    <script>
+      // variant 1 //
+      // function closerFunk() {
+      //   let total = 0;
+      //   return function (x) {
+      //     total += x;
+      //     return total;
+      //   };
+      // }
+      // const sum = closerFunk();
+
+      // variant 2 //
+      const sum = (() => {
+        let total = 0;
+        return (x) => (total += x);
+      })();
+
+      console.log(sum(3));
+      console.log(sum(5));
+      console.log(sum(20));
+
+    </script>
+  </body>
+</html>
