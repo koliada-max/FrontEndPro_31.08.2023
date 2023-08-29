@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Complex Cycles</title>
+  </head>
+  <body>
+    <h2>1. Numbers from 20 to 30 with Step 0.5</h2>
+    <div id="numbersWithStepOutput"></div>
+
+    <h2>2. Dollar Exchange Rate</h2>
+    <div id="dollarExchangeRateOutput"></div>
+
+    <h2>3. Squares Not Exceeding N</h2>
+    <label for="nInput">Enter an integer number N:</label>
+    <input type="number" id="nInput" />
+    <button onclick="calculateNumbers()">Calculate</button>
+    <div id="numbersNotExceedingNOutput"></div>
+
+    <script>
+      // 1. Numbers from 20 to 30 with Step 0.5
+      const numbersWithStep = [];
+      for (let i = 20; i <= 30; i += 0.5) {
+        numbersWithStep.push(i);
+      }
+      document.getElementById(
+        'numbersWithStepOutput'
+      ).textContent = `Numbers from 20 to 30 with step 0.5: ${numbersWithStep.join(
+        ', '
+      )}`;
+
+      // 2. Dollar Exchange Rate
+      const dollarRates = Array.from({ length: 10 }, (_, i) => (i + 1) * 10);
+      const exchangeRateOutput = dollarRates
+        .map((rate) => `${rate} USD = ${rate * 27} UAH`)
+        .join('<br>');
+
+      document.getElementById('dollarExchangeRateOutput').innerHTML =
+        exchangeRateOutput;
+
+      // 3. Squares Not Exceeding N
+      function calculateNumbers() {
+        const n = parseInt(document.getElementById('nInput').value);
+        const numbers = [];
+        for (let i = 1; i <= 100; i++) {
+          const square = i * i;
+          if (square <= n) {
+            numbers.push(i);
+          } else {
+            break;
+          }
+        }
+        document.getElementById(
+          'numbersNotExceedingNOutput'
+        ).textContent = `Numbers whose squares do not exceed ${n}: ${numbers.join(', ')}`;
+      }
+    </script>
+  </body>
+</html>
