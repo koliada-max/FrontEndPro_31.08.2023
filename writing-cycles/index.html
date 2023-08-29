@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Writing Cycles</title>
+  </head>
+  <body>
+    <h2>1. Numbers from 10 to 20</h2>
+    <div id="output"></div>
+
+    <h2>2. Numbers and Their Squares</h2>
+    <div id="squareOutput"></div>
+
+    <h2>3. Multiplication Table for 7</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody id="multiplicationTable"></tbody>
+    </table>
+
+    <h2>4. Sum of Numbers from 1 to 15</h2>
+    <div id="sumOutput"></div>
+
+    <h2>5.Product of Numbers from 15 to 35</h2>
+    <div id="productOutput"></div>
+
+    <h2>6.Average of Numbers from 1 to 500</h2>
+    <div id="averageOutput"></div>
+
+    <h2>7. Sum of Even Numbers from 30 to 80</h2>
+    <div id="evenSumOutput"></div>
+    <h2>8. Numbers Divisible by 3 from 100 to 200</h2>
+    <div id="numbersDivisibleBy3"></div>
+
+    <h2>9. Find Divisors</h2>
+    <label for="numberInput">Enter a natural number:</label>
+    <input type="number" id="numberInput" />
+    <button onclick="findDivisors()">Find Divisors</button>
+
+    <h2>10. Divisors:</h2>
+    <div id="divisorsOutput"></div>
+
+    <h2>10.1 Number of Even Divisors:</h2>
+    <div id="evenDivisorCountOutput"></div>
+
+    <h2>11. Sum of Even Divisors:</h2>
+    <div id="sumOfEvenDivisorsOutput"></div>
+
+    <h2>12. Multiplication Table from 1 to 10</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>*</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10</th>
+        </tr>
+      </thead>
+      <tbody>
+        <script>
+          for (let i = 1; i <= 10; i++) {
+            document.write('<tr>');
+            document.write('<th>' + i + '</th>');
+            for (let j = 1; j <= 10; j++) {
+              document.write('<td>' + i * j + '</td>');
+            }
+
+            document.write('</tr>');
+          }
+        </script>
+      </tbody>
+    </table>
+
+    <script>
+      // 1. Numbers from 10 to 20
+      const numbers = Array.from({ length: 11 }, (_, i) => i + 10);
+      document.getElementById('output').textContent = numbers.join(', ');
+
+      // 2. Numbers and Their Squares
+      const number = Array.from({ length: 11 }, (_, i) => i + 10);
+      const square = number.map((num) => `${num} squared = ${num * num}`);
+      document.getElementById('squareOutput').innerHTML = square.join('<br>');
+
+      // 3. Multiplication Table for 7
+      const table = document.getElementById('multiplicationTable');
+      for (let i = 1; i <= 10; i++) {
+        const row = table.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        cell1.innerHTML = `7 x ${i}`;
+        cell2.innerHTML = 7 * i;
+      }
+
+      // 4. Sum of Numbers from 1 to 15
+      let sum = 0;
+      for (let i = 1; i <= 15; i++) {
+        sum += i;
+      }
+      document.getElementById(
+        'sumOutput'
+      ).textContent = `The sum of numbers from 1 to 15 is ${sum}`;
+
+      // 5. Product of Numbers from 15 to 35
+      const product = [...Array(36).keys()]
+        .slice(15)
+        .reduce((acc, num) => acc * num, 1);
+      document.getElementById(
+        'productOutput'
+      ).textContent = `The product of numbers from 15 to 35 is ${product}`;
+
+      // 6. Average of Numbers from 1 to 500
+      const n = 500;
+      const averageOfNumbers = Math.floor((n * (n + 1)) / (2 * n));
+      document.getElementById(
+        'averageOutput'
+      ).textContent = `The average of all integers from 1 to ${n} is ${averageOfNumbers}`;
+
+      // 7. Sum of Even Numbers from 30 to 80
+      let evenSum = 0;
+      for (let i = 30; i <= 80; i += 2) {
+        evenSum += i;
+      }
+      document.getElementById(
+        'evenSumOutput'
+      ).textContent = `The sum of even numbers from 30 to 80 is ${evenSum}`;
+
+      // 8. Numbers Divisible by 3 from 100 to 200
+      const divisibleBy3 = [];
+      for (let i = 100; i <= 200; i++) {
+        if (i % 3 === 0) {
+          divisibleBy3.push(i);
+        }
+      }
+      document.getElementById(
+        'numbersDivisibleBy3'
+      ).textContent = `Numbers divisible by 3 from 100 to 200: ${divisibleBy3.join(
+        ', '
+      )}`;
+
+      // 9. Find Divisors // 10. Number of Even Divisors // 11. Sum of Even Divisors
+      function findDivisors() {
+        const n = parseInt(document.getElementById('numberInput').value);
+        const divisors = [],
+          evenDivisors = [];
+        for (let i = 1; i <= n; i++) {
+          if (n % i === 0) {
+            divisors.push(i);
+            if (i % 2 === 0) evenDivisors.push(i);
+          }
+        }
+        document.getElementById('divisorsOutput').textContent =
+          divisors.join(', ');
+        document.getElementById('evenDivisorCountOutput').textContent =
+          evenDivisors.length;
+        document.getElementById('sumOfEvenDivisorsOutput').textContent =
+          evenDivisors.reduce((a, b) => a + b, 0);
+      }
+    </script>
+  </body>
+</html>
