@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Array Manipulation</title>
+  </head>
+  <body>
+    <h2>Array Manipulation</h2>
+    <label for="arrayInput">Enter array elements (comma-separated):</label>
+    <input type="text" id="arrayInput" />
+    <button onclick="createAndManipulateArray()">Create Array</button>
+    <div id="arrayOutput"></div>
+
+    <script>
+      let myArray = [];
+
+      function createAndManipulateArray() {
+        const inputText = document.getElementById('arrayInput').value;
+        const inputArray = inputText.split(',').map((item) => item.trim());
+
+        if (inputArray.some((item) => isNaN(item))) {
+          document.getElementById('arrayOutput').innerHTML =
+            'Error: Please enter valid numbers!';
+          return;
+        }
+
+        myArray = inputArray.map((item) => parseInt(item));
+        displayArray('Array:', myArray);
+
+        myArray.sort((a, b) => a - b);
+        displayArray('Array sort:', myArray);
+
+        myArray.splice(1, 4);
+        displayArray('Array remove:', myArray);
+      }
+
+      function displayArray(label, arr) {
+        const arrayOutput = document.getElementById('arrayOutput');
+        arrayOutput.innerHTML += `${label} [${arr.join(', ')}]<br>`;
+      }
+    </script>
+  </body>
+</html>
