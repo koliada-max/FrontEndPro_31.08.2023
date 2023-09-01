@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>recurse</title>
+  </head>
+  <body>
+    <script>
+      function pow(num, degree) {
+        if (degree === 0) {
+          return 1;
+        }
+
+        return num * pow(num, degree - 1);
+      }
+
+      console.log(pow(4, 3));
+    </script>
+  </body>
+</html>
