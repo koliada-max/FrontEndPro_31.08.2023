@@ -111,16 +111,18 @@
       ).textContent = `The sum of numbers from 1 to 15 is ${sum}`;
 
       // 5. Product of Numbers from 15 to 35
-      const product = [...Array(36).keys()]
-        .slice(15)
-        .reduce((acc, num) => acc * num, 1);
+      const product = Array.from({ length: 21 }, (_, i) => i + 15).reduce(
+        (acc, num) => acc * num,
+        1
+      );
+
       document.getElementById(
         'productOutput'
       ).textContent = `The product of numbers from 15 to 35 is ${product}`;
 
       // 6. Average of Numbers from 1 to 500
       const n = 500;
-      const averageOfNumbers = Math.floor((n * (n + 1)) / (2 * n));
+      const averageOfNumbers = (n * (n + 1)) / (2 * n);
       document.getElementById(
         'averageOutput'
       ).textContent = `The average of all integers from 1 to ${n} is ${averageOfNumbers}`;
