@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this-chain</title>
+  </head>
+  <body>
+    <script>
+      let ladder = {
+        step: 0,
+        up: function () {
+          alert(this.step++);
+          return this;
+        },
+        down: function () {
+          alert(this.step--);
+          return this;
+        },
+        showStep: function () {
+          alert(this.step);
+          return this;
+        },
+      };
+
+      ladder.up().up().down().showStep();
+    </script>
+  </body>
+</html>
