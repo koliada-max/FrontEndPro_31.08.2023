@@ -16,6 +16,16 @@
     <button onclick="calculateNumbers()">Calculate</button>
     <div id="numbersNotExceedingNOutput"></div>
 
+    <h2>4. Prime Number Check</h2>
+    <button onclick="checkPrimeNumber()">Check Prime Number</button>
+    <div id="primeNumberOutput"></div>
+
+    <h2>5. Power of 3 Check</h2>
+    <label for="powerOf3Input">Enter a number to check:</label>
+    <input type="number" id="powerOf3Input" />
+    <button onclick="checkNumber()">Check</button>
+    <div id="powerOf3Output"></div>
+
     <script>
       // 1. Numbers from 20 to 30 with Step 0.5
       const numbersWithStep = [];
@@ -54,6 +64,62 @@
         ).textContent = `Numbers whose squares do not exceed ${n}: ${numbers.join(
           ', '
         )}`;
+      }
+
+      // 4. Prime Number Check
+      function isPrime(number) {
+        if (number <= 1) {
+          return false;
+        }
+
+        for (let i = 2; i < number; i++) {
+          if (number % i === 0) {
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+      function checkPrimeNumber() {
+        const numberToCheck = parseInt(
+          prompt('Enter a number to check for primality:')
+        );
+        const isNumberPrime = isPrime(numberToCheck);
+        const primeNumberOutput = isNumberPrime
+          ? `${numberToCheck} is a prime number.`
+          : `${numberToCheck} is not a prime number.`;
+
+        document.getElementById('primeNumberOutput').textContent =
+          primeNumberOutput;
+      }
+
+      // 5. Power of 3 Check
+      function checkNumber() {
+        const numberToCheck = parseInt(
+          document.getElementById('powerOf3Input').value
+        );
+        const result = canBeObtained(numberToCheck);
+
+        const powerOf3Output = result
+          ? `${numberToCheck} can be obtained as a power of 3.`
+          : `${numberToCheck} cannot be obtained as a power of 3.`;
+
+        document.getElementById('powerOf3Output').textContent = powerOf3Output;
+      }
+
+      function canBeObtained(number) {
+        if (number <= 0) {
+          return false;
+        }
+
+        let base = 1;
+
+        while (base < number) {
+          base *= 3;
+        }
+
+        return base === number;
       }
     </script>
   </body>
