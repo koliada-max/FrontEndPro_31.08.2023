@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>recurse</title>
+  </head>
+  <body>
+    <script>
+      class SuperArray extends Array {
+        constructor(...elements) {
+          super(...elements);
+        }
+        sum = () =>
+          this.filter((el) => typeof el === 'number').reduce(
+            (acc, current) => acc + current,
+            0
+          );
+      }
+      const names = new SuperArray('Bob', 'Jane');
+      console.log(names); // ['Bob', 'Jane']
+      
+      const nums = new SuperArray(10, 20, 30, 40, -100, 50);
+      const total = nums.sum();
+      console.log(total); // 50;
+    </script>
+  </body>
+</html>
