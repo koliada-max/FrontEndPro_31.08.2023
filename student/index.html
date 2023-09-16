@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student</title>
+  </head>
+  <body>
+    <script>
+      class Student {
+        constructor(firstName, lastName, birthYear) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+          this.birthYear = birthYear;
+          this.grades = [];
+          this.attendance = Array(25).fill(false);
+        }
+
+        get age() {
+          return new Date().getFullYear() - this.birthYear;
+        }
+
+        addGrade(grade) {
+          this.grades.push(grade);
+        }
+
+        setAttendance(day, present = true) {
+          if (day >= 1 && day <= 25) {
+            this.attendance[day - 1] = present;
+          }
+        }
+
+        getAverageGrade() {
+          return (
+            this.grades.reduce((acc, grade) => acc + grade, 0) /
+              this.grades.length || 0
+          );
+        }
+
+        getAverageAttendance() {
+          return (
+            this.attendance.filter((day) => day).length /
+              this.attendance.length || 0
+          );
+        }
+
+        summary() {
+          const avgGrade = this.getAverageGrade();
+          const avgAttendance = this.getAverageAttendance();
+          if (avgGrade > 90 && avgAttendance > 0.9) return 'Excellent!';
+          if (avgGrade > 90 || avgAttendance > 0.9)
+            return 'Good, but could be better';
+          return 'Not satisfactory!';
+        }
+      }
+
+      const student1 = new Student('John', 'Doe', 2000);
+      student1.addGrade(95);
+      student1.addGrade(92);
+      student1.setAttendance(1);
+      student1.setAttendance(3);
+
+      console.log(
+        `${student1.firstName} ${student1.lastName} - Age: ${student1.age} years`
+      );
+      console.log(`Average grade: ${student1.getAverageGrade()}`);
+      console.log(`Average attendance: ${student1.getAverageAttendance()}`);
+      console.log(student1.summary());
+
+      const student2 = new Student('Alice', 'Smith', 1999);
+      student2.addGrade(88);
+      student2.addGrade(94);
+      student2.setAttendance(1);
+      student2.setAttendance(2);
+      student2.setAttendance(3);
+
+      console.log(
+        `${student2.firstName} ${student2.lastName} - Age: ${student2.age} years`
+      );
+      console.log(`Average grade: ${student2.getAverageGrade()}`);
+      console.log(`Average attendance: ${student2.getAverageAttendance()}`);
+      console.log(student2.summary());
+    </script>
+  </body>
+</html>
