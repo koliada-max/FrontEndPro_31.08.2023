@@ -11,18 +11,29 @@
         constructor(...elements) {
           super(...elements);
         }
-        sum = () =>
-          this.filter((el) => typeof el === 'number').reduce(
+
+        sum() {
+          return this.filter((el) => typeof el === 'number').reduce(
             (acc, current) => acc + current,
             0
           );
+        }
       }
-      const names = new SuperArray('Bob', 'Jane');
-      console.log(names); // ['Bob', 'Jane']
-      
-      const nums = new SuperArray(10, 20, 30, 40, -100, 50);
-      const total = nums.sum();
-      console.log(total); // 50;
+
+      try {
+        const names = new SuperArray('Bob', 'Jane');
+        console.log(names); // ['Bob', 'Jane']
+      } catch (error) {
+        console.error(error);
+      }
+
+      try {
+        const nums = new SuperArray(10, 20, 30, 40, -100, 50);
+        const total = nums.sum();
+        console.log(total); // 50;
+      } catch (error) {
+        console.error(error);
+      }
     </script>
   </body>
 </html>
