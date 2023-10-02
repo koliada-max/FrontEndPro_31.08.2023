@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Home task 16</title>
+  </head>
+  <body>
+    <div id="stopwatch">00:00:00</div>
+
+    <script>
+      function formatNumber(num) {
+        return num < 10 ? '0' + num : num;
+      }
+
+      function updateClock(hours, minutes, seconds) {
+        const clockElement = document.getElementById('stopwatch');
+        const timeString = `${formatNumber(hours)}:${formatNumber(
+          minutes
+        )}:${formatNumber(seconds)}`;
+        clockElement.textContent = timeString;
+      }
+
+      let hours = 0;
+      let minutes = 0;
+      let seconds = 0;
+
+      setInterval(() => {
+        seconds++;
+        if (seconds === 60) {
+          seconds = 0;
+          minutes++;
+          if (minutes === 60) {
+            minutes = 0;
+            hours++;
+          }
+        }
+        updateClock(hours, minutes, seconds);
+      }, 1000);
+    </script>
+  </body>
+</html>
