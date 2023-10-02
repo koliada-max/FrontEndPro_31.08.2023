@@ -34,6 +34,16 @@
       } catch (error) {
         console.error(error);
       }
+
+      let a = true;
+let b = false;
+setTimeout(() => {
+  b = a;
+  console.timeEnd('1'); 
+}, 1000);
+console.time('1');
+
+
     </script>
   </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Home task 16</title>
+  </head>
+  <body>
+    <script>
+      
+      const Role = Object.freeze({
+        Admin: 'admin',
+        Editor: 'editor',
+        Reader: 'reader',
+        SuperAdmin: 'superadmin',
+      });
+
+      
+      class User {
+        constructor(id, firstName, lastName, role) {
+          this.id = id;
+          this.firstName = firstName;
+          this.lastName = lastName;
+          this.role = role;
+        }
+      }
+
+      const editor = new User(1, 'John', 'Doe', Role.Admin);
+
+      console.log(editor.role); 
+      console.log(editor.role === Role.Admin); 
+      console.log(Role); 
+      console.log(editor);
+
+      Role.Admin = 'hello'; 
+      editor.role = 'editor';
+      delete Role.Reader; 
+      delete editor.role; 
+      editor.newProp = 'value'; 
+    </script>
+  </body>
+</html>
