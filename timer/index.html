@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Home task 17</title>
+  </head>
+  <body>
+    <script>
+      class StopWatch {
+        constructor(onTick) {
+          this.onTick = onTick;
+          this.timer = null;
+          this.hours = 0;
+          this.minutes = 0;
+          this.seconds = 0;
+        }
+
+        start() {
+          this.timer = setInterval(() => {
+            this.seconds++;
+            if (this.seconds === 60) {
+              this.seconds = 0;
+              this.minutes++;
+              if (this.minutes === 60) {
+                this.minutes = 0;
+                this.hours++;
+              }
+            }
+            this.onTick(this.getTime());
+          }, 1000);
+        }
+
+        pause() {
+          clearInterval(this.timer);
+        }
+
+        reset() {
+          this.pause();
+          this.hours = 0;
+          this.minutes = 0;
+          this.seconds = 0;
+        }
+
+        getTime() {
+          return {
+            hours: this.hours,
+            minutes: this.minutes,
+            seconds: this.seconds,
+          };
+        }
+      }
+
+      const onTick = (time) => console.log(time);
+      const stopWatch = new StopWatch(onTick);
+      stopWatch.start();
+
+      setTimeout(() => {
+        stopWatch.pause();
+        console.log(stopWatch.getTime());
+      }, 5000);
+
+      setTimeout(() => {
+        console.log(stopWatch.getTime());
+      }, 10000);
+
+      setTimeout(() => {
+        stopWatch.reset();
+        console.log(stopWatch.getTime());
+      }, 15000);
+    </script>
+  </body>
+</html>
