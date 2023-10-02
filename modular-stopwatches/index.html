@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch App</title>
+  </head>
+  <body>
+    <div id="stopwatchContainer"></div>
+    <script type="module">
+      import Stopwatch from './stopwatch.js';
+      import StopwatchUI from './stopwatch-ui.js';
+
+      const initialTime = { hours: 0, minutes: 0, seconds: 0 };
+      const ui = new StopwatchUI(initialTime);
+      const onTick = (time) => ui.setTime(time);
+      const stopwatch = new Stopwatch(onTick);
+
+      ui.addStartBtnListener(() => stopwatch.start());
+      ui.addPauseBtnListener(() => stopwatch.pause());
+      ui.addResetBtnListener(() => stopwatch.reset());
+
+      ui.appendStopWatch(document.getElementById('stopwatchContainer'));
+    </script>
+  </body>
+</html>
