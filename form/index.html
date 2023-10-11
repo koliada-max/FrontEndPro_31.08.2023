@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      form {
+        width: 400px;
+        margin: 0 auto;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      input[type='text'],
+      textarea,
+      select {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+      }
+      input[type='radio'],
+      input[type='checkbox'] {
+        margin-right: 5px;
+      }
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+      #userData {
+        display: none;
+        margin-top: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Registration Formx</h1>
+    <form id="registrationForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required /><br />
+
+      <label for="lastName">Last Name:</label>
+      <input type text id="lastName" name="lastName" required /><br />
+
+      <label for="birthdate">Date of Birth:</label>
+      <input type="text" id="birthdate" name="birthdate" required /><br />
+
+      <label>Gender:</label><br />
+      <input type="radio" id="male" name="gender" value="Male" />
+      <label for="male">Male</label><br />
+      <input type="radio" id="female" name="gender" value="Female" />
+      <label for="female">Female</label><br />
+
+      <label for="city">City:</label>
+      <select id="city" name="city">
+        <option value="Kyiv">Kyiv</option>
+        <option value="Lviv">Lviv</option>
+        <option value="Odessa">Odessa</option></select
+      ><br />
+
+      <label for="address">Address:</label>
+      <textarea id="address" name="address"></textarea><br />
+
+      <label>Languages:</label><br />
+      <input
+        type="checkbox"
+        id="language1"
+        name="languages"
+        value="Ukrainian"
+      />
+      <label for="language1">Ukrainian</label><br />
+      <input type="checkbox" id="language2" name="languages" value="English" />
+      <label for="language2">English</label><br />
+      <input type="checkbox" id="language3" name="languages" value="Other" />
+      <label for="language3">Other</label><br />
+
+      <button type="button" onclick="displayTable()">Save</button>
+    </form>
+
+    <div id="userData" style="display: none">
+      <h2>Your Data:</h2>
+      <table id="dataTable"></table>
+    </div>
+
+    <script>
+      function displayTable() {
+        const form = document.getElementById('registrationForm');
+        const userData = document.getElementById('userData');
+
+        const formData = new FormData(form);
+
+        const newRow = userData.querySelector('table').insertRow();
+        newRow.insertCell().textContent = formData.get('firstName');
+        newRow.insertCell().textContent = formData.get('lastName');
+        newRow.insertCell().textContent = formData.get('birthdate');
+        newRow.insertCell().textContent = formData.get('gender');
+        newRow.insertCell().textContent = formData.get('city');
+        newRow.insertCell().textContent = formData.get('address');
+        newRow.insertCell().textContent = Array.from(
+          formData.getAll('languages')
+        ).join(', ');
+
+        form.style.display = 'none';
+        userData.style.display = 'block';
+      }
+    </script>
+  </body>
+</html>
