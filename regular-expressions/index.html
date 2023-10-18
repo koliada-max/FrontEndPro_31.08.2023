@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regular-expressions</title>
+  </head>
+  <body>
+    <script>
+      function toCamelCase(input) {
+        if (input === null || input === undefined) {
+          return input;
+        }
+
+        return input.replace(/_([a-z])/g, (match, letter) =>
+          letter.toUpperCase()
+        );
+      }
+
+      console.log(toCamelCase('hello_world'));
+      console.log(toCamelCase('very_long_property_name'));
+      console.log(toCamelCase('kebab-case-key'));
+    </script>
+  </body>
+</html>
