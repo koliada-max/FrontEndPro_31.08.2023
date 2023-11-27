@@ -1,57 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Магазин</title>
-    <style>
-      .hidden {
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="header">
       <h1><a href="#" id="homeLink">Мій Магазин</a></h1>
       <a href="#" id="cartLink">Basket (0)</a>
     </div>
-
     <div id="content">
       <div id="categories">
-        <ul>
-          <li>
-            <a href="#" class="category-link" data-category="flowers">Квіти</a>
-          </li>
-          <li>
-            <a href="#" class="category-link" data-category="books">Книги</a>
-          </li>
-          <li>
-            <a href="#" class="category-link" data-category="electronics"
-              >Електроніка</a
-            >
-          </li>
-        </ul>
+        <ul id="categoryList"></ul>
       </div>
       <div id="product-list">
         <h2>Ваші категорії товарів</h2>
-        <ul id="products">
-          <li data-category="flowers" data-id="1" data-price="100">
-            <a href="#" class="product-link">Квітка 1</a>
-          </li>
-          <li data-category="flowers" data-id="2" data-price="150">
-            <a href="#" class="product-link">Квітка 2</a>
-          </li>
-          <li data-category="books" data-id="1" data-price="200">
-            <a href="#" class="product-link">Книга 1</a>
-          </li>
-          <li data-category="books" data-id="2" data-price="250">
-            <a href="#" class="product-link">Книга 2</a>
-          </li>
-          <li data-category="electronics" data-id="1" data-price="300">
-            <a href="#" class="product-link">Гаджет 1</a>
-          </li>
-          <li data-category="electronics" data-id="2" data-price="350">
-            <a href="#" class="product-link">Гаджет 2</a>
-          </li>
-        </ul>
+        <ul id="products"></ul>
       </div>
       <div id="product-details" class="hidden">
         <h2>Інформація про товар</h2>
@@ -64,153 +30,6 @@
         <ul id="cart-items"></ul>
       </div>
     </div>
-
-    <script>
-      const cart = {};
-      const categories = document.getElementById('categories');
-      const productList = document.getElementById('product-list');
-      const productDetails = document.getElementById('product-details');
-      const cartDiv = document.getElementById('cart');
-      const products = document.getElementById('products');
-
-      function show(element, hideElements = []) {
-        hideElements.forEach((el) => el.classList.add('hidden'));
-        element.classList.remove('hidden');
-      }
-
-      function showCart() {
-        show(cartDiv, [categories, productDetails, productList]);
-        const cartItemsList = document.getElementById('cart-items');
-        cartItemsList.innerHTML = '';
-        let totalCost = 0;
-
-        for (const category in cart) {
-          cart[category].forEach((productId) => {
-            const product = document.querySelector(
-              `li[data-category="${category}"][data-id="${productId}"]`
-            );
-            const productName =
-              product.querySelector('.product-link').textContent;
-            const productPrice = parseFloat(product.getAttribute('data-price'));
-            totalCost += productPrice;
-
-            const li = document.createElement('li');
-            li.textContent = `Product: ${productName}, Category: ${category}, ID: ${productId}, Price: ${productPrice} грн`;
-
-            const removeButton = document.createElement('button');
-            removeButton.textContent = 'Видалити';
-            removeButton.addEventListener('click', () =>
-              removeItemFromCart(category, productId)
-            );
-
-            li.appendChild(removeButton);
-            cartItemsList.appendChild(li);
-          });
-        }
-
-        const totalLi = document.createElement('li');
-        totalLi.textContent = `Total: ${totalCost} грн`;
-        cartItemsList.appendChild(totalLi);
-      }
-
-      function updateCartCount() {
-        let totalCount = 0;
-        for (const category in cart) {
-          totalCount += cart[category].length;
-        }
-        const cartLink = document.getElementById('cartLink');
-        cartLink.textContent = `Basket (${totalCount})`;
-      }
-
-      function showCategories() {
-        show(categories, [productDetails, productList, cartDiv]);
-      }
-
-      function showProducts(category) {
-        show(productList, [productDetails]);
-        products.querySelectorAll('li').forEach((product) => {
-          const productCategory = product.getAttribute('data-category');
-          product.style.display =
-            productCategory === category ? 'list-item' : 'none';
-        });
-      }
-
-      function showProductDetails(category, productId) {
-        show(productDetails);
-        const product = products.querySelector(
-          `li[data-category="${category}"][data-id="${productId}"]`
-        );
-        const productName = product.querySelector('.product-link').textContent;
-        const productPrice = `${product.getAttribute('data-price')} грн`;
-        const buyButton = document.getElementById('buy-button');
-        document.getElementById('product-name').textContent = productName;
-        document.getElementById('product-price').textContent = productPrice;
-        buyButton.setAttribute('data-category', category);
-        buyButton.setAttribute('data-id', productId);
-      }
-
-      function removeItemFromCart(category, productId) {
-        if (cart[category]) {
-          const index = cart[category].indexOf(productId);
-          if (index > -1) {
-            cart[category].splice(index, 1);
-            showCart();
-            updateCartCount();
-          }
-        }
-      }
-
-      showCategories();
-
-      const categoryLinks = document.querySelectorAll('.category-link');
-      categoryLinks.forEach((link) => {
-        link.addEventListener('click', (event) => {
-          event.preventDefault();
-          const category = link.getAttribute('data-category');
-          showProducts(category);
-          history.pushState({}, '', `/${category}`);
-        });
-      });
-
-      const productLinks = document.querySelectorAll('.product-link');
-      productLinks.forEach((link) => {
-        link.addEventListener('click', (event) => {
-          event.preventDefault();
-          const category = link.parentElement.getAttribute('data-category');
-          const productId = link.parentElement.getAttribute('data-id');
-          showProductDetails(category, productId);
-          history.pushState({}, '', `/${category}/${productId}`);
-        });
-      });
-
-      const buyButton = document.getElementById('buy-button');
-      buyButton.addEventListener('click', () => {
-        const category = buyButton.getAttribute('data-category');
-        const productId = buyButton.getAttribute('data-id');
-        if (!cart[category]) {
-          cart[category] = [];
-        }
-        cart[category].push(productId);
-        alert('Товар куплено');
-        updateCartCount();
-      });
-
-      const cartLink = document.getElementById('cartLink');
-      cartLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        showCart();
-        history.pushState({}, '', '/basket');
-      });
-
-      const homeLink = document.getElementById('homeLink');
-      homeLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        show(categories, [productDetails, productList, cartDiv]);
-        products.querySelectorAll('li').forEach((product) => {
-          product.style.display = 'list-item';
-        });
-        history.pushState({}, '', '/');
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
