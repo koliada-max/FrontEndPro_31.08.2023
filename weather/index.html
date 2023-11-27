@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather-info</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="weather-info">
+    <div id="input-section">
+        <label class="label-title" for="cityInput">Введіть назву міста: </label>
+        <input type="text" id="cityInput" placeholder="Введіть місто">
+        <button onclick="getWeather()">Отримати погоду</button>
+    </div>
+    <div id="output-section" style="display: none;">
+        <h1>Погода в місті <span id="city"></span></h1>
+        <p>Температура: <span id="temperature"></span> °C</p>
+        <p>Тиск: <span id="pressure"></span> hPa</p>
+        <p>Опис: <span id="description"></span></p>
+        <p>Вологість: <span id="humidity"></span> %</p>
+        <p>Швидкість вітру: <span id="wind-speed"></span> м/с</p>
+        <p>Напрям вітру: <span id="wind-deg"></span> градусів</p>
+        <img id="weather-icon" alt="Погодний значок">
+        <div class="">
+          <button class="btn" onclick="resetWeather()">Вернутися до пошуку</button>
+        </div>
+        
+    </div>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
