@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import './App.css';
 
 class App extends Component {
@@ -7,7 +7,13 @@ class App extends Component {
     this.state = {
       products: ['JavaScrypt', 'React', 'Node.js', 'MongoDB', 'Express', 'HTML', 'CSS', 'SASS', 'Gulp', 'Webpack', 'Babel', 'Git', 'GitHub', 'VS Code', 'Linux', 'Windows']
     };
+
+    this.inputRef = createRef();
   }
+
+  focusInput = () => {
+    this.inputRef.current.focus();
+  };
 
   render() {
     return (
@@ -18,6 +24,8 @@ class App extends Component {
             <li key={index}>{product}</li>
           ))}
         </ul>
+        <input type="text" ref={this.inputRef} />
+        <button onClick={this.focusInput}>Focus input</button>
       </div>
     );
   }
