@@ -26,8 +26,12 @@ class ToDoPage extends Component {
       return;
     }
 
+    function generateUniqueId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+    
     const newTask = {
-      id: tasks.length + 1,
+      id: generateUniqueId(),
       name,
       date,
       completed: false,

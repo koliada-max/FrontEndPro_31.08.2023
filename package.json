@@ -1,0 +1,33 @@
+{
+  "name": "frontendpro_31.08.2023",
+  "version": "1.0.0",
+  "description": "Repository for learning js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build:css": "sass src/style.scss dist/style.min.css --style compressed",
+    "build:js": "uglifyjs src/index.js -o dist/index_bundle.min.js -c -m",
+    "build": "npm run build:css && npm run build:js && gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koliada-max/FrontEndPro_31.08.2023.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/koliada-max/FrontEndPro_31.08.2023/issues"
+  },
+  "homepage": "https://github.com/koliada-max/FrontEndPro_31.08.2023#readme",
+  "devDependencies": {
+    "concat": "^1.0.3",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^5.1.0",
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.69.5",
+    "uglify-js": "^3.17.4"
+  }
+}
