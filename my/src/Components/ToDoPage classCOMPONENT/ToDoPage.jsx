@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './style.css';
+// import './style.css';
 
 class ToDoPage extends Component {
   constructor() {
@@ -102,9 +102,9 @@ class ToDoPage extends Component {
                 {tasks.map((task) => (
                   <div
                     key={task.id}
-                    className={`todo-item todo ${task.completed ? 'completed' : ''}`}
+                    className="todo-item todo"
                   >
-                    <div className={`todo-item todo-block ${task.completed ? 'completed' : ''}`}>
+                    <div>
                       <input
                         type="checkbox"
                         checked={task.completed}
@@ -113,6 +113,7 @@ class ToDoPage extends Component {
                       {editTaskId === task.id ? (
                         <>
                           <input
+                          className={`todo-item todo-block ${task.completed ? 'completed' : ''}`}
                             type="text"
                             value={editName}
                             onChange={(e) =>
