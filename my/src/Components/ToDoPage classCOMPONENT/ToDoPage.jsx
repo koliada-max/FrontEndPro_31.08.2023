@@ -29,7 +29,7 @@ class ToDoPage extends Component {
     function generateUniqueId() {
       return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
-    
+
     const newTask = {
       id: generateUniqueId(),
       name,
@@ -75,7 +75,7 @@ class ToDoPage extends Component {
     });
   };
 
-  handleCheckout = (id) => {
+  handleToggleCompleted = (id) => {
     this.setState((prevState) => ({
       tasks: prevState.tasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
@@ -100,20 +100,19 @@ class ToDoPage extends Component {
             <div className="todo-content">
               <div className="todo-list">
                 {tasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="todo-item todo"
-                  >
+                  <div key={task.id} className="todo-item todo">
                     <div>
                       <input
                         type="checkbox"
                         checked={task.completed}
-                        onChange={() => this.handleCheckout(task.id)}
+                        onChange={() => this.handleToggleCompleted(task.id)}
                       />
                       {editTaskId === task.id ? (
                         <>
                           <input
-                          className={`todo-item todo-block ${task.completed ? 'completed' : ''}`}
+                            className={`todo-item todo-block ${
+                              task.completed ? 'completed' : ''
+                            }`}
                             type="text"
                             value={editName}
                             onChange={(e) =>

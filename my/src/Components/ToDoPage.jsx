@@ -3,7 +3,6 @@ import List from './List';
 import Form from './Form';
 
 const ToDoPage = () => {
-  
   const taskData = JSON.parse(localStorage.getItem('todo') || '[]');
 
   const [tasks, setTasks] = useState(taskData);
@@ -48,7 +47,7 @@ const ToDoPage = () => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
-  const handleCheckout = (id) => {
+  const handleToggleCompleted = (id) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
@@ -70,7 +69,7 @@ const ToDoPage = () => {
           <div className="todo-content">
             <List
               tasks={tasks}
-              handleCheckout={handleCheckout}
+              handleToggleCompleted={handleToggleCompleted}
               handleDelete={handleDelete}
             />
             <Form

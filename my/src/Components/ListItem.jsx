@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ListItem = ({ task, handleCheckout, handleDelete }) => {
+const ListItem = ({ task, handleToggleCompleted, handleDelete }) => {
   const { id, completed, name, date } = task;
 
   return (
@@ -9,7 +9,7 @@ const ListItem = ({ task, handleCheckout, handleDelete }) => {
         <input
           type="checkbox"
           checked={completed}
-          onChange={() => handleCheckout(id)}
+          onChange={() => handleToggleCompleted(id)}
         />
         <div className="todo-info">
           <div className={`task-name ${completed ? 'completed' : ''}`}>
