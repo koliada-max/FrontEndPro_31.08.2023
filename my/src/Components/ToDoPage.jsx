@@ -46,29 +46,27 @@ const ToDoPage = () => {
   };
 
   return (
-    <>
-      <section className="todo-section">
-        <div className="container">
-          <div className="todo-header">
-            <h1 className="todo-title">Todo List</h1>
-          </div>
-          <div className="todo-content">
-            <List
-              tasks={tasks}
-              handleToggleCompleted={handleToggleCompleted}
-              handleDelete={handleDelete}
-            />
-            <Form
-              name={name}
-              date={date}
-              handleSubmit={handleSubmit}
-              handleNameChange={setName}
-              handleDateChange={setDate}
-            />
-          </div>
+    <section className="todo-section">
+      <div className="container">
+        <div className="todo-header">
+          <h1 className="todo-title">Todo List</h1>
         </div>
-      </section>
-    </>
+        <div className="todo-content">
+          <List
+            tasks={tasks}
+            handleToggleCompleted={handleToggleCompleted}
+            handleDelete={handleDelete}
+          />
+          <Form
+            name={name}
+            date={date}
+            handleSubmit={handleSubmit}
+            handleNameChange={setName}
+            handleDateChange={setDate}
+          />
+        </div>
+      </div>
+    </section>
   );
 };
 
