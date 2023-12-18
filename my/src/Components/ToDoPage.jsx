@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, deleteTask, toggleCompleted } from '../actions';
 import List from './List';
 import Form from './Form';
 
 const ToDoPage = () => {
-  const taskData = JSON.parse(localStorage.getItem('todo') || '[]');
-
-  const [tasks, setTasks] = useState(taskData);
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state);
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
 
@@ -15,7 +16,6 @@ const ToDoPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted!');
 
     if (!name.trim()) {
       return;
@@ -32,32 +32,18 @@ const ToDoPage = () => {
       completed: false,
     };
 
-    if (name !== '') {
-      setTasks((prevTasks) => {
-        const updatedTasks = [...prevTasks, newTask];
-        console.log('Tasks updated:', updatedTasks);
-        return updatedTasks;
-      });
-      setName('');
-      setDate('');
-    }
+    dispatch(addTask(newTask));
+    setName('');
+    setDate('');
   };
 
   const handleDelete = (id) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    dispatch(deleteTask(id));
   };
 
   const handleToggleCompleted = (id) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
+    dispatch(toggleCompleted(id));
   };
-
-  useEffect(() => {
-    localStorage.setItem('todo', JSON.stringify(tasks));
-  }, [tasks]);
 
   return (
     <>

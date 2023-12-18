@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTask } from '../actions';
 
-const Form = (props) => {
-  const { name, date, handleSubmit, handleNameChange, handleDateChange } = props;
+const Form = () => {
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('');
+  const dispatch = useDispatch();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!name.trim()) {
+      return;
+    }
+
+    function generateUniqueId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+
+    const newTask = {
+      id: generateUniqueId(),
+      name,
+      date,
+      completed: false,
+    };
+
+    dispatch(addTask(newTask));
+    setName('');
+    setDate('');
+  };
 
   return (
     <div className="todo-form">
@@ -12,7 +39,7 @@ const Form = (props) => {
             <input
               type="text"
               value={name}
-              onChange={(e) => handleNameChange(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </label>
@@ -20,11 +47,7 @@ const Form = (props) => {
         <div>
           <label className="form-label">
             Date:
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => handleDateChange(e.target.value)}
-            />
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
           </label>
         </div>
         <div className="form-actions">
