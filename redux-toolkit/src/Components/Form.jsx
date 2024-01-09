@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTask } from '../redux/slice/todo';
+import { addTaskAsync } from '../redux/todos/asyncActions';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -25,9 +25,18 @@ const Form = () => {
       completed: false,
     };
 
-    dispatch(addTask(newTask));
+    console.log("Логирование новой задачи...");
+  dispatch(addTaskAsync(newTask))
+    .then((addedTask) => {
+      console.log("Новая задача добавлена:", addedTask);
+    })
+    .catch((error) => {
+      console.error("Ошибка при добавлении задачи:", error.message);
+    });
     setName('');
     setDate('');
+
+    console.log(addTaskAsync(newTask));
   };
 
   return (
@@ -47,7 +56,11 @@ const Form = () => {
         <div>
           <label className="form-label">
             Date:
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
           </label>
         </div>
         <div className="form-actions">

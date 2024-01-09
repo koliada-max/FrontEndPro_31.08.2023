@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTaskAsync, deleteTaskAsync, toggleCompletedAsync } from '../redux/slice/todo';
+import {
+  getTodosAsync,
+  addTaskAsync,
+  deleteTaskAsync,
+  toggleCompletedAsync,
+} from '../redux/todos/asyncActions';
 import List from './List';
 import Form from './Form';
 
@@ -45,6 +50,10 @@ const ToDoPage = () => {
   const generateUniqueId = () => {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
   };
+
+  useEffect(() => {
+    dispatch(getTodosAsync());
+  }, []);
 
   return (
     <section className="todo-section">
