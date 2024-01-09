@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListItem from './ListItem';
 import { getTodosAsync } from '../redux/todos/asyncActions';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
 
-const List = ({ handleToggleCompleted, handleDelete }) => {
+const TodoList = ({ handleToggleCompleted, handleDelete }) => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todo.tasks);
 
@@ -14,17 +16,19 @@ const List = ({ handleToggleCompleted, handleDelete }) => {
   }, []);
 
   return (
-    <div className="todo-list">
-      {todos?.todo?.todo?.map((task) => (
-        <ListItem
-          key={task.id}
-          task={task}
-          handleToggleCompleted={handleToggleCompleted}
-          handleDelete={handleDelete}
-        />
+    <List className="todo-list">
+      {todos?.todo?.todo?.map((task, index) => (
+        <React.Fragment key={task.id}>
+          <ListItem
+            task={task}
+            handleToggleCompleted={handleToggleCompleted}
+            handleDelete={handleDelete}
+          />
+          {index < todos.todo.todo.length - 1 && <Divider />}
+        </React.Fragment>
       ))}
-    </div>
+    </List>
   );
 };
 
-export default List;
+export default TodoList;

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTaskAsync } from '../redux/todos/asyncActions';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -26,45 +28,41 @@ const Form = () => {
     };
 
     console.log("Логирование новой задачи...");
-  dispatch(addTaskAsync(newTask))
-    .then((addedTask) => {
-      console.log("Новая задача добавлена:", addedTask);
-    })
-    .catch((error) => {
-      console.error("Ошибка при добавлении задачи:", error.message);
-    });
+    dispatch(addTaskAsync(newTask))
+      .then((addedTask) => {
+        console.log("Новая задача добавлена:", addedTask);
+      })
+      .catch((error) => {
+        console.error("Ошибка при добавлении задачи:", error.message);
+      });
     setName('');
     setDate('');
-
-    console.log(addTaskAsync(newTask));
   };
 
   return (
     <div className="todo-form">
       <form onSubmit={handleSubmit}>
         <div>
-          <label className="form-label">
-            Task:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </label>
+          <TextField
+            label="Task"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
         <div>
-          <label className="form-label">
-            Date:
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </label>
+          <TextField
+            type="date"
+            variant="outlined"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
         </div>
         <div className="form-actions">
-          <button type="submit">Add new Task</button>
+          <Button type="submit" variant="contained" color="primary">
+            Add new Task
+          </Button>
         </div>
       </form>
     </div>

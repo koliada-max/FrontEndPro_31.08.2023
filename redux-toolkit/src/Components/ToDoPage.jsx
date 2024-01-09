@@ -8,6 +8,7 @@ import {
 } from '../redux/todos/asyncActions';
 import List from './List';
 import Form from './Form';
+import Typography from '@mui/material/Typography';
 
 const ToDoPage = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,9 @@ const ToDoPage = () => {
     <section className="todo-section">
       <div className="container">
         <div className="todo-header">
-          <h1 className="todo-title">Todo List</h1>
+          <Typography variant="h1" className="todo-title">
+            Todo List
+          </Typography>
         </div>
         <div className="todo-content">
           <List

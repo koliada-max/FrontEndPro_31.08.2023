@@ -1,45 +1,45 @@
+// src/Components/ListItem.jsx
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTaskAsync, toggleCompletedAsync } from '../redux/todos/asyncActions';
+import { deleteTask, toggleCompleted } from '../redux/todos/slice';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
+import Button from '@mui/material/Button';
 
-const ListItem = ({ task }) => {
+const TodoListItem = ({ task }) => {
   const dispatch = useDispatch();
   const { id, completed } = task;
   const { name, date } = task;
 
   const taskName = name && typeof name === 'object' ? name.name : 'No name';
-  const taskDate = date && typeof date === 'object' ? date.date : 'No date';
+  const taskDate = date && typeof date === 'object' ? name.date : 'No date';
 
-  const handleToggleCompleted = () => {
-    dispatch(toggleCompletedAsync({ taskId: id, completed: !completed }));
-  };
 
-  const handleDelete = () => {
-    dispatch(deleteTaskAsync(id));
-  };
+  console.log('date', name);
 
   return (
-    <div className="todo-item todo">
-      <div className={`todo-item todo-block ${completed ? 'completed' : ''}`}>
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={handleToggleCompleted}
-        />
-        <div className="todo-info">
-          <div className={`task-name ${completed ? 'completed' : ''}`}>
-            {taskName}
-          </div>
-          <div className="task-date">{taskDate}</div>
+    <ListItem
+      className={`todo-item todo ${completed ? 'completed' : ''}`}
+      alignItems="flex-start"
+    >
+      <Checkbox
+        checked={completed}
+        onChange={() => dispatch(toggleCompleted(id))}
+      />
+      <ListItemText>
+        <div className={`task-name ${completed ? 'completed' : ''}`}>
+          {taskName}
         </div>
-      </div>
+        <div className="task-date">{taskDate}</div>
+      </ListItemText>
       <div className="button-group">
-        <button type="button" onClick={handleDelete}>
+        <Button onClick={() => dispatch(deleteTask(id))} variant="outlined">
           Delete
-        </button>
+        </Button>
       </div>
-    </div>
+    </ListItem>
   );
 };
 
-export default ListItem;
+export default TodoListItem;
