@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ListItem from './ListItem';
+import TodoListItem from './TodoListItem';
 import { getTodosAsync } from '../redux/todos/asyncActions';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 
-const TodoList = ({ handleToggleCompleted, handleDelete }) => {
+const TodoList = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todo.tasks);
 
-  console.log('render list:', todos);
+  useEffect(() => {
+    localStorage.setItem('todo', JSON.stringify(todos));
+  }, [todos]);
 
   useEffect(() => {
     dispatch(getTodosAsync());
@@ -19,11 +21,7 @@ const TodoList = ({ handleToggleCompleted, handleDelete }) => {
     <List className="todo-list">
       {todos?.todo?.todo?.map((task, index) => (
         <React.Fragment key={task.id}>
-          <ListItem
-            task={task}
-            handleToggleCompleted={handleToggleCompleted}
-            handleDelete={handleDelete}
-          />
+          <TodoListItem task={task} />
           {index < todos.todo.todo.length - 1 && <Divider />}
         </React.Fragment>
       ))}

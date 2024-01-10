@@ -19,12 +19,14 @@ const todoSlice = createSlice({
     },
     addTask: (state, action) => {
       state.tasks.todo.todo.push(action.payload);
+      localStorage.setItem('todo', JSON.stringify(state.tasks));
       return state;
     },
     deleteTask: (state, action) => {
       state.tasks.todo.todo = state.tasks.todo.todo.filter(
         (task) => task.id !== action.payload
       );
+      localStorage.setItem('todo', JSON.stringify(state.tasks));
     },
     toggleCompleted: (state, action) => {
       state.tasks.todo.todo = state.tasks.todo.todo.map((task) =>
@@ -32,6 +34,7 @@ const todoSlice = createSlice({
           ? { ...task, completed: !task.completed }
           : task
       );
+      localStorage.setItem('todo', JSON.stringify(state.tasks));
     },
   },
   extraReducers: (builder) => {

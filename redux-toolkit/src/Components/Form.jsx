@@ -11,34 +11,34 @@ const Form = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     if (!name.trim()) {
       return;
     }
-
+  
     function generateUniqueId() {
       return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
-
+  
     const newTask = {
       id: generateUniqueId(),
       name,
       date,
       completed: false,
     };
-
-    console.log("Логирование новой задачи...");
+  
+    console.log("Logging a new task...");
     dispatch(addTaskAsync(newTask))
       .then((addedTask) => {
-        console.log("Новая задача добавлена:", addedTask);
+        console.log("New task added:", addedTask);
       })
       .catch((error) => {
-        console.error("Ошибка при добавлении задачи:", error.message);
+        console.error("Error adding task:", error.message);
       });
     setName('');
     setDate('');
   };
-
+  
   return (
     <div className="todo-form">
       <form onSubmit={handleSubmit}>

@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { STATE_NAME } from './state';
-import { deleteTask } from './slice';
+import { deleteTask, toggleCompleted } from './slice';
 
 // API endpoint
-const API_ENDPOINT = 'https://659c9546633f9aee7907b74d.mockapi.io/api/tasks/post';
+const API_ENDPOINT =
+  'https://659c9546633f9aee7907b74d.mockapi.io/api/tasks/post';
 
 export const getTodosAsync = createAsyncThunk(
   `${STATE_NAME}/todo/getTodos`,
@@ -14,7 +15,6 @@ export const getTodosAsync = createAsyncThunk(
     return await res.json();
   }
 );
-
 
 export const addTaskAsync = createAsyncThunk(
   `${STATE_NAME}/todo/addTodo`,
@@ -54,12 +54,23 @@ export const deleteTaskAsync = createAsyncThunk(
 
 export const toggleCompletedAsync = createAsyncThunk(
   `${STATE_NAME}/todo/toggleCompletedAsync`,
-  async ({ taskId, completed }) => {
-    const res = await fetch(`${API_ENDPOINT}/${taskId}`, {
-      method: 'PUT', // or PATCH
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ completed }),
-    });
-    return await res.json();
+  async ({ taskId, completed }, { dispatch }) => {
+    try {
+      dispatch(toggleCompleted(taskId, completed));
+      const res = await fetch(`${API_ENDPOINT}/${taskId}`, {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          completed,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error('Failed to completed task');
+      }
+      return taskId;
+    } catch (error) {
+      console.error('Error completed task:', error.message);
+      throw error;
+    }
   }
 );
