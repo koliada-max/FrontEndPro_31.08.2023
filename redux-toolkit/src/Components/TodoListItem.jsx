@@ -9,7 +9,8 @@ import Button from '@mui/material/Button';
 
 const TodoListItem = ({ task }) => {
   const dispatch = useDispatch();
-  const { name, date, id, completed } = task;
+ const { name, date, id, completed } = task || {};
+
 
   const taskName = name && typeof name === 'object' ? name.name : 'No name';
   const taskDate = date && typeof date === 'object' ? name.date : 'No date';

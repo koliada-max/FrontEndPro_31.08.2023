@@ -9,8 +9,9 @@ const API_ENDPOINT =
 export const getTodosAsync = createAsyncThunk(
   `${STATE_NAME}/todo/getTodos`,
   async (arg, thunkApi) => {
-    console.log('arg is:', arg);
-    console.log('thunkApi', thunkApi);
+
+    // console.log('arg is:', arg);
+    // console.log('thunkApi', thunkApi);
     const res = await fetch(API_ENDPOINT);
     return await res.json();
   }
